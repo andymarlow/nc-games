@@ -19,7 +19,6 @@ const ReviewList = () => {
     <div>
       <section>
         {reviews.map((review) => {
-          console.log(review);
           return (
             <li key={review.review_id}>
               <h1>{review.title}</h1>
@@ -33,7 +32,7 @@ const ReviewList = () => {
                 width="600"
                 height="600"
               />
-              <p>{review.review_body}</p>
+              <p>{review.review_body.substr(0, 45) + "..."}</p>
               <p>{review.created_at}</p>
               <p>{review.votes}</p>
               <p>{review.comment_count}</p>
