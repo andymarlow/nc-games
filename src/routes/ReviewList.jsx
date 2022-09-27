@@ -1,17 +1,19 @@
-import react from "react";
 import { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import { getReviews } from "../utils/api";
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const { category } = useParams();
+
   useEffect(() => {
-    getReviews().then(({ reviews }) => {
+    getReviews(category).then(({ reviews }) => {
       setReviews(reviews);
       setIsLoading(false);
     });
-  }, []);
+  }, [category]);
 
   return isLoading ? (
     <h2>Loading...</h2>
@@ -24,7 +26,9 @@ const ReviewList = () => {
               <h1>{review.title}</h1>
               <p>{review.owner}</p>
               <p>{review.designer}</p>
-              <p>{review.category}</p>
+              <Link to={`/reviews/${review.category}`}>
+                <p>{review.category}</p>
+              </Link>
               <img
                 className="Review-Image"
                 src={review.review_img_url}
