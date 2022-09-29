@@ -8,12 +8,12 @@ const Navbar = () => {
       <ul>
         <Link to={"/"}>
           <li>
-            <a>Home</a>
+            <h3>Home</h3>
           </li>
         </Link>
         <Link to={"/categories"}>
           <li>
-            <a>Categories</a>
+            <h3>Categories</h3>
           </li>
         </Link>
       </ul>
