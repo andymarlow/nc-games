@@ -50,8 +50,8 @@ const ReviewList = () => {
                 className="Review-Image"
                 src={review.review_img_url}
                 alt={review.review_title}
-                width="600"
-                height="auto"
+                width="400"
+                height="350"
               />
               <p>{review.review_body.substr(0, 45) + "..."}</p>
               <p>{review.created_at}</p>
