@@ -1,29 +1,46 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getReviews } from "../utils/api";
+import "../styles/ReviewList.css";
 
 const ReviewList = () => {
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const { category } = useParams();
 
   useEffect(() => {
-    getReviews(category).then(({ reviews }) => {
-      setReviews(reviews);
-      setIsLoading(false);
-    });
+    getReviews(category)
+      .then(({ reviews }) => {
+        setReviews(reviews);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
   }, [category]);
 
+  if (error) {
+    return (
+      <h2>
+        Content not found, please enter a valid review id or category
+        <br />
+        {error}
+      </h2>
+    );
+  }
   return isLoading ? (
     <h2>Loading...</h2>
   ) : (
     <div>
-      <section>
+      <ul className="review-list">
         {reviews.map((review) => {
           return (
-            <li key={review.review_id}>
-              <h1>{review.title}</h1>
+            <li className="review-list-single" key={review.review_id}>
+              <Link to={`/reviews/${review.category}/${review.review_id}`}>
+                <h1>{review.title}</h1>
+              </Link>
               <p>{review.owner}</p>
               <p>{review.designer}</p>
               <Link to={`/reviews/${review.category}`}>
@@ -34,7 +51,7 @@ const ReviewList = () => {
                 src={review.review_img_url}
                 alt={review.review_title}
                 width="600"
-                height="600"
+                height="auto"
               />
               <p>{review.review_body.substr(0, 45) + "..."}</p>
               <p>{review.created_at}</p>
@@ -44,9 +61,8 @@ const ReviewList = () => {
             </li>
           );
         })}
-      </section>
+      </ul>
     </div>
   );
 };
-
 export default ReviewList;
