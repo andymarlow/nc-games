@@ -21,3 +21,11 @@ export const getReviewById = (review_id) => {
     return res.data;
   });
 };
+
+export const patchReviewVote = (review_id, singleVote) => {
+  return gamesApi
+    .patch(`/reviews/${review_id}`, { inc_votes: singleVote })
+    .then((res) => {
+      return res.review;
+    });
+};

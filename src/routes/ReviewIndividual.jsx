@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getReviewById } from "../utils/api";
+import ReviewVote from "../components/ReviewVote";
 
 const ReviewIndividual = () => {
   const [review, setReview] = useState([]);
@@ -48,10 +49,9 @@ const ReviewIndividual = () => {
             height="auto"
           />
           <p>{review.review_body}</p>
-          <p>{review.created_at}</p>
-          <p>{review.votes}</p>
-          <p>{review.comment_count}</p>
-          <p></p>
+          <p>Date Posted: {review.created_at}</p>
+          <ReviewVote votes={review.votes} review_id={review_id} />
+          <p>Comments: {review.comment_count}</p>
         </li>
       </section>
     </div>
