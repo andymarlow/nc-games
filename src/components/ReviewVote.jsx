@@ -22,7 +22,7 @@ const ReviewVote = ({ review_id, votes }) => {
         setVoteChange((value) => value + singleVote);
         break;
       default:
-        setVoteErr(null);
+        setVoteErr(true);
     }
   };
 
